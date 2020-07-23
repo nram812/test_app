@@ -4,18 +4,20 @@ import dash_html_components as html
 import plotly.graph_objs as go
 import pandas as pd
 import flask
-
-df = pd.read_excel(r"nzens_probs_2020072303_utc_6H_sum_rain_amount_accumulation.xlsx", index_col =[0,1])
+dirs = r"nzens_probs_2020072303_utc_1H_sum_rain_amount_accumulation.xlsx"
+df = pd.read_excel(dirs, index_col =[0,1])
 
 mgr_options = df.index.droplevel(1).unique().values#df["Manager"].unique()
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+frequency = dirs.split('_')[4]
+
 
 server = flask.Flask(__name__) 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets, server=server)
 #app.css.config.serve_locally = True
 #app.scripts.config.serve_locally = True
 app.layout = html.Div([
-    html.H2("Probability of Rainfall Exceeding Value in Whanganui"),
+    html.H2("Probability of {} Rainfall Exceeding Value in Whanganui".format(frequency)),
     html.Div(
         [
             dcc.Dropdown(
