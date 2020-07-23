@@ -7,7 +7,7 @@ import flask
 
 df = pd.read_excel(r"nzens_probs_2020072303_utc_6H_sum_rain_amount_accumulation.xlsx", index_col =[0,1])
 
-mgr_options = [1, 5, 10, 25]#df["Manager"].unique()
+mgr_options = df.index.droplevel(1).unique().values#df["Manager"].unique()
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 #server = flask.Flask(__name__) 
